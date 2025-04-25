@@ -1,0 +1,68 @@
+<div class="mx-auto max-w-4xl p-4">
+  <div class="flex justify-between items-center mb-6">
+    <.link href={~p"/"}>
+      <.button class="rounded-full px-6 py-2 bg-zinc-100 hover:bg-zinc-200 transform hover:scale-105 transition-all duration-200">
+        ← Back to Gallery
+      </.button>
+    </.link>
+
+    <.link
+      href={~p"/photos/#{@photo.id}"}
+      method="delete"
+      data-confirm="Are you sure you want to delete this photo?"
+    >
+      <.button class="rounded-full px-6 py-2 bg-red-500 hover:bg-red-600 text-white transform hover:scale-105 transition-all duration-200">
+        Delete Photo
+      </.button>
+    </.link>
+  </div>
+
+  <!-- Rest of your existing show page content -->
+  <.list>
+    <:item title="Title"><%= @photo.title %></:item>
+    <:item title="Image">
+      <img src={@photo.image} alt={@photo.title} style="max-width: 500px;" />
+    </:item>
+    <:item title="Camera"><%= @photo.camera_make %> <%= @photo.camera_model %></:item>
+    <:item title="Camera Settings">
+      <ul class="list-disc list-inside space-y-2">
+        <%= for {label, value} <- [
+          {"Aperture", @photo.f_number},
+          {"Shutter Speed", @photo.exposure_time},
+          {"ISO", @photo.iso},
+          {"Flash", @photo.flash},
+          {"Focal Length", @photo.focal_length}
+        ] do %>
+          <%= if value && value != "Unknown" do %>
+            <li><%= label %>: <%= value %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </:item>
+    <:item title="Technical Details">
+      <ul class="list-disc list-inside space-y-2">
+        <li>Resolution: <%= @photo.resolution %></li>
+        <li>Bit Depth: <%= @photo.bit_depth %></li>
+      </ul>
+    </:item>
+    <:item title="Location">
+      <%= if @photo.latitude && @photo.longitude do %>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Latitude: <%= :erlang.float_to_binary(@photo.latitude, decimals: 6) %>° N</li>
+          <li>Longitude: <%= :erlang.float_to_binary(@photo.longitude, decimals: 6) %>° E</li>
+          <li>
+            <a 
+              href={"https://www.google.com/maps?q=#{@photo.latitude},#{@photo.longitude}"} 
+              target="_blank" 
+              class="text-blue-600 hover:underline"
+            >
+              View on Google Maps →
+            </a>
+          </li>
+        </ul>
+      <% else %>
+        <p class="text-gray-500">No location data available</p>
+      <% end %>
+    </:item>
+  </.list>
+</div>

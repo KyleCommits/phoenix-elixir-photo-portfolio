@@ -1,0 +1,29 @@
+<div class="mx-auto max-w-4xl text-center mb-8 mt-4">
+  <h1 class="text-4xl font-bold text-zinc-900 mb-4">Photo Portfolio</h1>
+  <p class="text-lg text-zinc-600">Welcome to my photography portfolio.</p>
+</div>
+
+<div class="w-screen px-2 sm:px-4">
+  <div class="photo-grid">
+    <%= for photo <- @photos do %>
+      <div class="photo-item">
+        <.link href={~p"/photos/#{photo.id}"}>
+          <img 
+            src={photo.image}
+            alt={photo.title}
+            class="photo-image"
+            loading="lazy"
+          />
+        </.link>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="fixed bottom-4 right-4">
+  <.link href={~p"/photos/new"}>
+    <.button class="rounded-full px-6 py-2 bg-zinc-100 hover:bg-zinc-200 transform hover:scale-105 transition-all duration-200">
+      + New Photo
+    </.button>
+  </.link>
+</div>

@@ -1,0 +1,61 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Add styles to prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Grid container for photo gallery */
+.photo-grid {
+  columns: 4;
+  column-gap: 1rem;
+  padding: 1rem;
+  width: 98vw;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Remove the photo item container and use image directly */
+.photo-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Set images to maintain aspect ratio and fit within their container */
+.photo-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for the images */
+.photo-image:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .photo-grid {
+    columns: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .photo-grid {
+    columns: 2;
+    padding: 0.5rem;
+    column-gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    columns: 1;
+  }
+}

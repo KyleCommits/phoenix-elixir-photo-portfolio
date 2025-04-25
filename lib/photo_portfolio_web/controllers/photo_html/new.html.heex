@@ -1,0 +1,42 @@
+<div class="mx-auto max-w-2xl p-6">
+  <div class="flex justify-between items-center mb-8">
+    <.link href={~p"/"}>
+      <.button class="rounded-full px-6 py-2 bg-zinc-100 hover:bg-zinc-200 transform hover:scale-105 transition-all duration-200">
+        ← Back to Gallery
+      </.button>
+    </.link>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-2xl font-semibold text-zinc-900 mb-6 text-center">Upload New Photo</h1>
+
+    <.simple_form :let={f} for={@changeset} action={~p"/photos"} multipart={true}>
+      <div :if={@changeset.action} class="rounded-lg bg-red-50 p-4 mb-4 text-sm text-red-600">
+        Oops, something went wrong! Please check the errors below.
+      </div>
+
+      <div class="space-y-6">
+        <.input field={f[:title]} type="text" label="Title" placeholder="Enter photo title" />
+        
+        <div class="border-2 border-dashed border-zinc-200 rounded-lg p-6 text-center hover:border-zinc-400 transition-colors">
+          <.input 
+            field={f[:image_upload]} 
+            type="file" 
+            accept="image/*"
+            label="Upload Photo" 
+            class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-zinc-100 file:text-zinc-600 hover:file:bg-zinc-200"
+          />
+          <p class="mt-2 text-sm text-zinc-500">JPG, PNG, or GIF files accepted</p>
+        </div>
+      </div>
+
+      <:actions>
+        <div class="mt-6 flex justify-center">
+          <.button class="rounded-full px-8 py-2 bg-blue-500 hover:bg-blue-600 text-white transform hover:scale-105 transition-all duration-200">
+            Upload Photo
+          </.button>
+        </div>
+      </:actions>
+    </.simple_form>
+  </div>
+</div>
